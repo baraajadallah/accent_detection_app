@@ -1,10 +1,11 @@
 numpy==1.26.4
 streamlit==1.45.1
 torch==2.7.1
-torchaudio==2.2.1
-transformers==4.40.2
+torchaudio==2.7.1
+transformers==4.52.4
 ffmpeg-python==0.2.0
 requests==2.32.3
 yt-dlp==2025.5.22
+gdown==4.8.0
 huggingface-hub==0.32.4
 python-ffmpeg==2.0.5
