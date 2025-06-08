@@ -6,12 +6,13 @@ import requests
 import os
 #from transformers import Wav2Vec2Processor, Wav2Vec2ForSequenceClassification
 from transformers import Wav2Vec2FeatureExtractor, Wav2Vec2ForSequenceClassification
-import ffmpeg
+#import ffmpeg
 import subprocess
 import yt_dlp
 import gdown
 import random
 import string
+from imageio_ffmpeg import get_ffmpeg_exe
 
 
 
@@ -121,11 +122,20 @@ def download_video(url: str) -> str:
 # ----------------------------
 def extract_audio(video_path: str, audio_path: str):
     try:
-        ffmpeg.input(video_path).output(audio_path, ac=1, ar=16000).run(overwrite_output=True)
+        ffmpeg_path = get_ffmpeg_exe()
+        command = [
+            ffmpeg_path,
+            "-i", video_path,
+            "-vn",              # no video
+            "-acodec", "pcm_s16le",
+            "-ar", "16000",
+            "-ac", "1",
+            audio_path
+        ]
+        subprocess.run(command, check=True)
         return audio_path
-    except ffmpeg.Error as e:
-        error_message = e.stderr.decode() if e.stderr else str(e)
-        raise RuntimeError(f"FFmpeg failed:\n{error_message}")
+    except subprocess.CalledProcessError as e:
+        raise RuntimeError(f"FFmpeg failed with error: {e}")
 
 
 # ----------------------------
