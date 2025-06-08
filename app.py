@@ -162,6 +162,14 @@ st.set_page_config(page_title="English Accent Detector", layout="centered")
 st.title("🎙️ English Accent Detector")
 st.markdown("Paste a public `.mp4` video URL. This tool will extract audio and classify the English-speaking accent.")
 
+with st.expander("ℹ️ Supported Platforms & Guidelines"):
+    st.markdown("""
+    - ✅ Video must be **publicly accessible** (no login required).
+    - ✅ Supported platforms: **YouTube**, **Loom**, **Google Drive**, **Dropbox**, and direct `.mp4` links.
+    - 🎯 Only **English-speaking accents** are supported (e.g., American, British, Indian, Australian).
+    - 🔊 Clear, uninterrupted speech works best — avoid background noise, music, or multiple speakers.
+    """)
+
 video_url = st.text_input("🔗 Enter Public Video URL (MP4 or Loom):")
 
 if st.button("Analyze"):

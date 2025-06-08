@@ -2,6 +2,14 @@
 
 This application uses deep learning to detect and analyze English accents in audio recordings.
 
+## 🧠 Model Information
+
+This app uses a fine-tuned Wav2Vec2 model from Hugging Face:
+- **Model**: `HamzaSidhu786/speech-accent-detection`
+- **Architecture**: Fine-tuned Wav2Vec2 for accent classification
+- **Purpose**: Specialized in detecting and classifying common English accents
+- **Base Model**: Wav2Vec2, originally developed by Facebook AI for speech recognition
+
 ## ✅ Supported Platforms
 
 The app supports publicly accessible video links from:
