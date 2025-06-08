@@ -14,6 +14,8 @@ import random
 import string
 from imageio_ffmpeg import get_ffmpeg_exe
 import imageio_ffmpeg
+import soundfile as sf
+import numpy as np
 
 
 
@@ -145,14 +147,16 @@ def extract_audio(video_path: str, audio_path: str):
 # ----------------------------
 def predict_accent(audio_path: str, extractor, model):
     try:
-        waveform, sr = torchaudio.load(audio_path)
+        waveform, sr = sf.read(audio_path)
         if sr != 16000:
-            resampler = torchaudio.transforms.Resample(orig_freq=sr, new_freq=16000)
-            waveform = resampler(waveform)
+            raise ValueError("Audio must be 16kHz")
 
-        waveform = waveform[0].unsqueeze(0)  # Use mono channel
+        # Ensure mono channel
+        if len(waveform.shape) > 1:
+            waveform = waveform[:, 0]
+        waveform = torch.tensor(waveform, dtype=torch.float32)
 
-        inputs = extractor(waveform[0], sampling_rate=16000, return_tensors="pt")
+        inputs = extractor(waveform, sampling_rate=16000, return_tensors="pt")
 
         with torch.no_grad():
             logits = model(**inputs).logits
