@@ -13,6 +13,7 @@ import gdown
 import random
 import string
 from imageio_ffmpeg import get_ffmpeg_exe
+import imageio_ffmpeg
 
 
 
@@ -122,20 +123,21 @@ def download_video(url: str) -> str:
 # ----------------------------
 def extract_audio(video_path: str, audio_path: str):
     try:
-        ffmpeg_path = get_ffmpeg_exe()
+        ffmpeg_path = imageio_ffmpeg.get_ffmpeg_exe()
         command = [
             ffmpeg_path,
             "-i", video_path,
-            "-vn",              # no video
-            "-acodec", "pcm_s16le",
-            "-ar", "16000",
-            "-ac", "1",
+            "-ac", "1",            # mono channel
+            "-ar", "16000",        # sample rate
+            "-vn",                 # no video
             audio_path
         ]
         subprocess.run(command, check=True)
+        if not os.path.exists(audio_path) or os.path.getsize(audio_path) < 10000:
+            raise RuntimeError("Extracted audio is missing or too small.")
         return audio_path
-    except subprocess.CalledProcessError as e:
-        raise RuntimeError(f"FFmpeg failed with error: {e}")
+    except Exception as e:
+        raise RuntimeError(f"Audio extraction failed: {e}")
 
 
 # ----------------------------
