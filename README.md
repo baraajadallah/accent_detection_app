@@ -2,6 +2,8 @@
 
 This application uses deep learning to detect and analyze English accents in audio recordings.
 
+🌐 **Live Demo**: [accentdetectionapp.streamlit.app](https://accentdetectionapp-ymymenybtfez3xt2xmwwrw.streamlit.app/)
+
 ## 🧠 Model Information
 
 This app uses a fine-tuned Wav2Vec2 model from Hugging Face:
@@ -31,7 +33,10 @@ The app supports publicly accessible video links from:
 ## System Requirements
 
 ### Python Version
-- Python 3.11 or higher
+
+- ✅ **Python 3.13** (required by Streamlit Cloud)
+- ⚠️ Local use with Python 3.11 is supported for development, but production is deployed on Python 3.13
+
 
 ### System Dependencies
 Before installing the Python packages, you need to install FFmpeg:
@@ -54,7 +59,7 @@ Download from [FFmpeg official website](https://ffmpeg.org/download.html)
 
 1. Create and activate a virtual environment:
 ```bash
-python3.11 -m venv venv
+python3.13 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
