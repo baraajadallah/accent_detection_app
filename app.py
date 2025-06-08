@@ -60,9 +60,9 @@ def download_video(url: str) -> str:
 
             ydl_opts = {
                 'outtmpl': outtmpl,
-                'format': 'bestvideo+bestaudio/best',
-                'merge_output_format': 'mp4',
-                'quiet': True
+                'format': 'best[ext=mp4]/best',
+                'quiet': True,
+                'postprocessors': []
             }
 
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
