@@ -9,3 +9,4 @@ yt-dlp==2025.5.22
 gdown==5.2.0
 huggingface-hub==0.32.4
 python-ffmpeg==2.0.5
+soundfile==0.12.1
